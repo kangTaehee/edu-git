@@ -72,3 +72,12 @@ git commit
 
 git commit -m "message"
 ```
+Staging Area 생략(git add)하고 commit
+준비영역(INDEX)에 등록된 적이 있는 파일만 가능
+`git commit -a -m "message"`
+## 커밋 메시지 변경
+새로운 커밋을 생성하지 않고(and) 가장 최근에 작성한 커밋 *코멘트 내용*을 수정
+`git commit --amend`
+☞ git commit과 같이 지정된 EDITOR를 실행하여 커밋 메시지
+입력
+`git commit --amend -m "message"`
