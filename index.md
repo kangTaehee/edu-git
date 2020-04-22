@@ -87,6 +87,13 @@ Staging Area 생략(git add)하고 commit
 ```
 git commit -a -m "message"
 ```
+## comment 작성 
+```
+1번째 줄 : 커밋 내의 변경 내용을 요약 // git log --oneline 에 표시됨.
+2번째 줄 : 빈 칸
+3번째 줄 : 변경한 이유
+```
+![](2020-04-22-17-31-08.png)
 
 ## 커밋 메시지 변경
 새로운 커밋을 생성하지 않고(and) 가장 최근에 작성한 커밋 *코멘트 내용*을 수정
@@ -184,8 +191,10 @@ git checkout -b release-1.0 version-1.0
 
 # branch
 * 브랜치는 저장소의 새로운 분할이다.
+* 각각의 독립적인 작업을 동시에 진행 할 수 있다.
 
 ![branch](2020-04-22-13-53-00.png)
+![](2020-04-22-17-34-09.png)
 ```
 로컬 브랜치 목록 출력
 git branch --list
@@ -199,7 +208,11 @@ git branch --all
 ```
 git branch <branch-name>
 git checkout <branch-name>
+
+브랜치 생성
 git branch release-1
+
+브랜치 전환하기
 git checkout release-1
 ```
 ## 새로운 브랜치 생성 하고 바로 체크 아웃 : branch 단계 생략
@@ -207,6 +220,56 @@ git checkout release-1
 git checkout -b <branch-name>
 git checkout -b hotfix-1
 ```
+
+# stash
+* 작업중인 브랜치에서 수정한 부분만 저장함.
+* 스택(stack)형태로 저장됨 ![](2020-04-22-17-46-12.png)
+* 수정했던 파일들을 복원할 때 반드시 stash했을 때와 같은 브랜치일 필요는 없다. 만약 다른 작업 중이던 브랜치에 이전의 작업들을 추가했을 때 충돌이 있으면 알려준다.
+
+# 추가 개발중 운영서버 수정 요청이 들어 올때
+* stage에 있는 수정된 파일이 있을때 checkout?
+
+![](2020-04-22-17-56-49.png)
+
+```
+git stash list
+
+현재 작업을 저장하고 브랜치를 HEAD로 이동(git reset --hard)
+git stash save
+```
+![](2020-04-22-18-09-06.png)
+
+```
+저장된 작업 꺼내기
+git stash pop
+
+가장 최근에 save한 stash가 현재 브랜치에 적용된다.
+stash pop과 비슷하지만 list에서 삭제되지 않고 남아 있는다.
+git stash apply
+git stash apply stash@{0}
+
+전체 리스트를 삭제
+git stash clear
+```
+![](2020-04-22-17-41-06.png)
+
+## stash 활용
+![](2020-04-22-17-44-29.png)
+![](2020-04-22-17-48-49.png)
+
+```
+// 가장 최근의 stash를 제거한다.
+$ git stash drop
+// stash 이름(ex. stash@{2})에 해당하는 stash를 제거한다.
+$ git stash drop [stash 이름]
+
+// 가장 최근의 stash를 사용하여 패치를 만들고 그것을 거꾸로 적용한다.
+$ git stash show -p | git apply -R
+// stash 이름(ex. stash@{2})에 해당하는 stash를 이용하여 거꾸로 적용한다.
+$ git stash show -p [stash 이름] | git apply -R
+```
+https://gmlwjd9405.github.io/2018/05/18/git-stash.html
+
 
 # Merge
 ## Diff(비교)
