@@ -191,3 +191,4 @@ git branch --list
 git branch --all
 ```
 ![list와 all의 차이](2020-04-22-16-06-54.png)
+```
