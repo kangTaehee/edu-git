@@ -37,15 +37,18 @@
 
 ### committed
 * git에서는 변경점의 집합(실제로는 snapshot형태)을 database에 저장하는 행위를 commit이라 한다. committed는, 변경점들이 commit되어 database에 저장된 상태이다.
+* 변경이 저장되는 곳, 히스토리로 남는 공간.
 
 ### modified
 * 말 그대로 변경된 상태이다. git이 기억하고 있던 상태에서 무언가 변경이 일어난 파일은 modified 상태가 된다. 파일의 추가나 삭제도 기존 상태에서 변경이 일어난 것이므로 modified 상태에 포함된다.
 
 ### stage
+* 변경 사항이 커밋 되기 전에 잠시 머무는 공간
 * modified 상태의 내용들 중에 실제 commit의 대상이 될 수 있도록 선택된 상태이다. Tool에 따라서는 파일단위가 아닌 line단위로도 staged상태로 보낼 수 있다. 아무리 사용자가 소스를 수정했어도 staged 상태로 변경되지 않은 내용들은 git에 commit되지 않는다. 대부분의 경우에 번거로운 중간과정이 될 수 있어, staged를 생략하고 modified에서 바로 commit 할 수 있는 옵션도 제공된다.
 
-
+### 버전에 대한 관점
 ![](2020-04-22-13-53-57.png)
+### 파일에 대한 관점
 ![](2020-04-22-13-54-43.png)
 
 # 에러발생
@@ -179,7 +182,7 @@ git checkout -b [브랜치이름] [태그이름]
 git checkout -b release-1.0 version-1.0
 ```
 
-## branch
+# branch
 * 브랜치는 저장소의 새로운 분할이다.
 
 ![branch](2020-04-22-13-53-00.png)
@@ -191,4 +194,45 @@ git branch --list
 git branch --all
 ```
 ![list와 all의 차이](2020-04-22-16-06-54.png)
+
+## 새로운 브랜치 생성 branch
+```
+git branch <branch-name>
+git checkout <branch-name>
+git branch release-1
+git checkout release-1
+```
+## 새로운 브랜치 생성 하고 바로 체크 아웃 : branch 단계 생략
+```
+git checkout -b <branch-name>
+git checkout -b hotfix-1
+```
+
+# Merge
+## Diff(비교)
+```
+변경 내용을 병합하기 전에 비교
+git diff <원본브랜치> <대상브랜치>
+git diff master hotfix
+git diff master origin/master
+```
+## Merge(병합)
+```
+마스터(master)에 브랜치(hotfix)를 병합
+git checkout master
+git merge hotfix
+로컬에 원격 브랜치 병합
+git diff master origin/master
+git merge origin/master
+```
+
+# Conflict 충돌
+```
+병합 취소
+git merge --abort
+
+출동 해결
+충돌하는 파일을 수정 후 add, commit
+git add <conflict-filename>
+git commit -m "[merge] message"
 ```
