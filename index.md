@@ -239,13 +239,23 @@ git stash save
 ```
 ![](2020-04-22-18-09-06.png)
 
+## Stash를 적용한 브랜치 만들기
+수정한 파일에 Stash를 적용하면 충돌이 날 수 있다.
+충돌이 나면 충돌을 해결해야 한다.
+그리고 Stash한 것은 다시 테스트해야 한다.
+git stash branch 명령을 실행하면 Stash할 당시의 커밋을
+Checkout한 후 새로운 브랜치를 만들고 여기에 적용한다.
+```
+git stash branch newbranch
+```
+
 ```
 저장된 작업 꺼내기
 git stash pop
 
+git stash apply
 가장 최근에 save한 stash가 현재 브랜치에 적용된다.
 stash pop과 비슷하지만 list에서 삭제되지 않고 남아 있는다.
-git stash apply
 git stash apply stash@{0}
 
 전체 리스트를 삭제
@@ -299,3 +309,5 @@ git merge --abort
 git add <conflict-filename>
 git commit -m "[merge] message"
 ```
+
+![](img/2020-04-23-09-13-57.png)
