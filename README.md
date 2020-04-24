@@ -360,3 +360,7 @@ git commit -m "[merge] message"
 ```
 * [과거의 버전으로 돌아가기 reset](https://opentutorials.org/course/2708/15210)
 * [branch 병합 시 충돌해결](https://opentutorials.org/module/2676/15275)
+
+# 교육사이트
+* https://backlog.com/git-tutorial/kr/intro/intro1_1.html
+* 
