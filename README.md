@@ -215,11 +215,42 @@ git push origin --tags
 ```
 
 ## tag 기반 체크 아웃
-```
+```bash
 git checkout -b [브랜치이름] [태그이름]
 git checkout -b release-1.0 version-1.0
 ```
 
+# switch : git 2.23.0 이후 추가됨
+* checkout 명령어가 보다 명확한 2개의 명령어로 분리되었다.
+* `switch` : 브랜치 변경 브랜치를 (없는 경우 생성하면서) 변경할 수 있다.
+```bash
+$ git switch develop
+Switched to branch 'develop'
+```
+* 브랜치 생성 및 변경
+```bash
+git:(develop) git switch -c feature/git-switch
+Switched to a new branch 'feature/git-switch'
+
+git:(feature/git-switch)
+```
+* `restore` : 변경사항 복원, 작업중인 파일을 복원한다.
+```bash
+git:(develop) $ git status
+On branch develop
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+    modified:   build.gradle // 변경한 파일이 있다. 위에서 git restore 로 변경사항을 되돌릴 수 있다고 알리고 있다.
+
+no changes added to commit (use "git add" and/or "git commit -a")
+git:(develop) $ git restore build.gradle  // 복구
+git:(develop) $ git status
+On branch develop
+nothing to commit, working tree clean
+git:(develop) $
+```
+![](img/2020-04-22-13-54-43.png)
 # branch
 * 브랜치는 저장소의 새로운 분할이다.
 * 각각의 독립적인 작업을 동시에 진행 할 수 있다.
@@ -360,6 +391,44 @@ git commit -m "[merge] message"
 ```
 * [과거의 버전으로 돌아가기 reset](https://opentutorials.org/course/2708/15210)
 * [branch 병합 시 충돌해결](https://opentutorials.org/module/2676/15275)
+
+# 요약 (명령어 git 생략)
+| 명령어 | 의미 |
+---|---|
+add file_path | 수정한 코드 선택하기 ( git add * )
+commit -m “commit_description” | 선택한 코드 설명 적기 ( git commit -m “내용”)
+checkout branch_name | 브랜치 선택하기
+checkout -t remote_path/branch_name | 원격 브랜치 선택하기
+branch branch_name | 브랜치 생성하기
+branch -r --remote | 원격 브랜치 목록보기
+branch -a --all | 로컬 브랜치 목록보기
+branch -m --move branch_name change_branch_name | 브랜치 이름 바꾸기
+branch -d --delete branch_name | 브랜치 삭제하기
+push remote_name —delete branch_name | 원격 브랜치 삭제하기 ( git push origin —delete gh-pages )
+push romote_name branch_name | add하고 commit한 코드 git server에 보내기 (git push origin master)
+pull | remote서버에서 최신 코드 받아와 merge 하기
+
+## 초기 설정
+
+| 명령어 | 의미 |
+---|---|
+init | git 생성하기 
+config — global user.name “user_name ” | git 계정Name 변경하기
+config — global user.email “user_email” | git 계정Mail변경하기
+clone git_path | 코드가져오기
+fetch | git서버에서 최신 코드 받아오기
+
+## 작업 취소 복구
+
+| 명령어 | 의미 |
+---|---|
+reset — hard HEAD^ | commit한 이전 코드 취소하기
+reset — soft HEAD^ | 코드는 살리고 commit만 취소하기
+reset — merge | merge 취소하기
+reset — hard HEAD && git pull | git 코드 강제로 모두 받아오기
+stash / git stash save “description” | 작업코드 임시저장하고 브랜치 바꾸기
+stash pop | 마지막으로 임시저장한 작업코드 가져오기
+branch — set-upstream-to=remote_path/branch_name | git pull no tracking info 에러해결
 
 # 교육사이트
 * https://backlog.com/git-tutorial/kr/intro/intro1_1.html
