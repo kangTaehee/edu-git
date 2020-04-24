@@ -1,4 +1,6 @@
 # Git & Github 실무활용
+## GIT VS SVN
+![](img/2020-04-24-13-47-43.png)
 ## Git
 * 2005 리눅스 커널 개발자인 리누스 토발즈가 개발
 * Git은 소프트웨어 개발에서 버전 관리를 위한 도구
@@ -6,18 +8,22 @@
 * 개별 작업자가 중앙화된 코드 호스팅 시스템에서 독립적으로 일하고 프로젝트 저장소의 개별 로컬 사본에서 작업을 수행
 ## Git 특징
 * Git의 데이터는 파일 시스템의 스냅샷
+![](img/2020-04-24-13-54-11.png)
 * Git은 시간순으로 파일의 스냅샷을 저장
 * Git은 대부분의 명령을 로컬에서 실행
 * Git은 오프 라인 상태에서도 작업을 할 수 있음
 * Git은 데이터의 무결성을 위해 SHA-1 해시를 사용하여 체크섬을 만듦
 * 대규모 프로젝트를 위한 완전한 분산 환경 지원
 * 체크섬은 해시(SHA-A)로 40자 길이의 16진수 문자열
+![](img/2020-04-24-13-42-18.png)
 ## Git 장점
 * 분산 환경에서 저장소 관리
+![](img/2020-04-24-13-43-53.png)
 * 로컬 저장소에서 파일 생성 및 수정
 * 로컬 저장소에서 수정 내역 추적
 * 원격 저장소에 적용된 내용을 동일하게 로컬 저장소에 적용
 * 원격에 영향을 끼치지 않는 브랜치 생성
+![](img/2020-04-24-13-44-39.png)
 * 버전 관리 용이
 * 이슈 추적 용이
 ## 저장소(repository)
@@ -49,6 +55,7 @@
 ### 버전에 대한 관점
 ![](img/2020-04-22-13-53-57.png)
 ### 파일에 대한 관점
+* 상태 Life Cycle : Untracked <-> Tracked
 ![](img/2020-04-22-13-54-43.png)
 
 # 에러발생
@@ -64,6 +71,30 @@ git [실행명령어] [옵션] [목적지 or 행위] [대상] [추가옵션]
 
 # 도움말 보기
 `git 명령어 --help`
+
+# git 시작
+![](img/2020-04-24-14-04-27.png)
+```
+초기화
+git init
+
+제외파일 설정 http://gitignore.io/
+echo -n -e "\n# Created by https://www.gitignore.io/api/java,eclipse,visualstudiocode \n# Edit at https://www.gitignore.io/?templates=java,eclipse,visualstudiocode \n \n### Eclipse ### \n.metadata \nbin/ \ntmp/ \n*.tmp \n*.bak \n*.swp \n*~.nib \nlocal.properties \n.settings/ \n.loadpath \n.recommenders \n \n# External tool builders \n.externalToolBuilders/ \n \n# Locally stored "Eclipse launch configurations" \n*.launch \n \n# PyDev specific (Python IDE for Eclipse) \n*.pydevproject \n \n# CDT-specific (C/C++ Development Tooling) \n.cproject \n \n# CDT- autotools \n.autotools \n \n# Java annotation processor (APT) \n.factorypath \n \n# PDT-specific (PHP Development Tools) \n.buildpath \n \n# sbteclipse plugin \n.target \n \n# Tern plugin \n.tern-project \n \n# TeXlipse plugin \n.texlipse \n \n# STS (Spring Tool Suite) \n.springBeans \n \n# Code Recommenders \n.recommenders/ \n \n# Annotation Processing \n.apt_generated/ \n \n# Scala IDE specific (Scala & Java development for Eclipse) \n.cache-main \n.scala_dependencies \n.worksheet \n \n### Eclipse Patch ### \n# Eclipse Core \n.project \n \n# JDT-specific (Eclipse Java Development Tools) \n.classpath \n \n# Annotation Processing \n.apt_generated \n \n.sts4-cache/ \n \n### Java ### \n# Compiled class file \n*.class \n \n# Log file \n*.log \n \n# BlueJ files \n*.ctxt \n \n# Mobile Tools for Java (J2ME) \n.mtj.tmp/ \n \n# Package Files # \n*.jar \n*.war \n*.nar \n*.ear \n*.zip \n*.tar.gz \n*.rar \n \n# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml \nhs_err_pid* \n \n### VisualStudioCode ### \n.vscode/* \n\!.vscode/settings.json \n\!.vscode/tasks.json \n\!.vscode/launch.json \n\!.vscode/extensions.json \n \n### VisualStudioCode Patch ### \n# Ignore all local history of files \n.history \n \n# End of https://www.gitignore.io/api/java,eclipse,visualstudiocode" > .gitignore
+
+파일 타입 설정
+.gitattributes
+
+전역설정
+git config --global user.name "kth"
+git config –-global user.email "kth@unpl.co.kr"
+
+프로젝트 별도 설정
+git config user.name "boyA"
+
+git config --list
+```
+* 전역설정 내용 확인 C:\Users\사용자계정\.gitconfig
+![](img/2020-04-24-14-11-13.png)
 
 # add
 ```console
@@ -239,6 +270,24 @@ git stash save
 ```
 ![](img/2020-04-22-18-09-06.png)
 
+## *git reset --hard* 주의
+* 변경내역을 지움 = 복구 불가?
+
+## reflog
+* head에 대한 변경이력 제공
+```
+git reflog
+git reset --hard <커밋해시id 6자리>
+git reset --hard HEAD@{번호}
+```
+![](img/2020-04-24-15-23-21.png)
+
+## 해당 head를 기준으로 삭제한 브렌치를 다시 만듬 = 삭제한 브렌치 복구
+```
+git checkout -b remaster 8ad6060
+```
+![](img/2020-04-24-15-48-20.png)
+
 ## Stash를 적용한 브랜치 만들기
 수정한 파일에 Stash를 적용하면 충돌이 날 수 있다.
 충돌이 나면 충돌을 해결해야 한다.
@@ -309,5 +358,5 @@ git merge --abort
 git add <conflict-filename>
 git commit -m "[merge] message"
 ```
-
-![](img/img/2020-04-23-09-13-57.png)
+* [과거의 버전으로 돌아가기 reset](https://opentutorials.org/course/2708/15210)
+* [branch 병합 시 충돌해결](https://opentutorials.org/module/2676/15275)
