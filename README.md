@@ -234,7 +234,7 @@ Switched to a new branch 'feature/git-switch'
 
 git:(feature/git-switch)
 ```
-* `restore` : 변경사항 복원, 작업중인 파일을 복원한다.
+* `restore` : 변경사항 복원, 작업중인 파일을 복원한다. (작업한 내용이 손실 날아감 ~ 훨훨)
 ```bash
 git:(develop) $ git status
 On branch develop
@@ -395,7 +395,7 @@ git commit -m "[merge] message"
 # 요약 (명령어 git 생략)
 | 명령어 | 의미 |
 ---|---|
-add file_path | 수정한 코드 선택하기 ( git add * )
+add file_path | 수정한 코드 선택하기 ( git add . )
 commit -m “commit_description” | 선택한 코드 설명 적기 ( git commit -m “내용”)
 checkout branch_name | 브랜치 선택하기
 checkout -t remote_path/branch_name | 원격 브랜치 선택하기
